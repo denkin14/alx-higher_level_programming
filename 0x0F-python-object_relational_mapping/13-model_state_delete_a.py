@@ -1,21 +1,18 @@
 #!/usr/bin/python3
-""" This Script deletes State objects
-    from the database hbtn_0e_6_usa
+""" prints the State object with the name passed as argument from the database
 """
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+import sys
 from model_state import Base, State
-from sys import argv
+from sqlalchemy import (create_engine)
+from sqlalchemy.orm import sessionmaker
 
 
 if __name__ == "__main__":
-    username, password, db_name = argv[1:]
-    engine = create_engine("mysql+mysqldb://{}:{}@localhost/{}".format(
-                           username, password, db_name))
+    engine = create_engine('mysql+mysqldb://{}:{}@localhost:3306/{}'
+                           .format(sys.argv[1], sys.argv[2], sys.argv[3]))
     Base.metadata.create_all(engine)
     Session = sessionmaker(bind=engine)
-    my_session = Session()
-    for state in my_session.query(State).filter(State.name.like("%a%")):
-        my_session.delete(state)
-    my_session.commit()
-    my_session.close()
+    session = Session()
+    for instance in session.query(State).filter(State.name.like('%a%')):
+        session.delete(instance)
+    session.commit()
