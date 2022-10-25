@@ -1,9 +1,12 @@
 #!/usr/bin/python3
-"""Script fetches https://intranet.hbtn.io/status."""
+"""
+This Python script fetches https://alx-intranet.hbtn.io/status
+"""
 import requests
 
 if __name__ == "__main__":
-    r = requests.get("https://intranet.hbtn.io/status")
+    response = requests.get("https://alx-intranet.hbtn.io/status")
+    response = response.text
     print("Body response:")
-    print("\t- type: {}".format(type(r.text)))
-    print("\t- content: {}".format(r.text))
+    print("\t- type: {}".format(type(response)))
+    print("\t- content: {}".format(response))
